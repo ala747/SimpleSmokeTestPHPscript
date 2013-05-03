@@ -58,8 +58,8 @@ Class SmokeTest {
 }
 
 $arguments = getopt('u:i:vh');
-if (!isset($arguments['u']))
-    die("Doc:\n\n-url <URL to test>     Required. The URL to check.\n-i [script|link|img]   Optional. HTML tag to look for child URLs to test. Specify one -i for each tag or none to test all three.\n-v                     Optional. Verbose output\n-h                     Optional. Shows this help message\n\nUsage: ./smokeTest.php -url <URL to test> [-i script] [-i link] [-i img] [-v]\n\n");
+if (!isset($arguments['u']) || isset($arguments['h']))
+    die("Doc:\n\n-u <URL to test>       Required. The URL to check.\n-i [script|link|img]   Optional. HTML tag to look for child URLs to test. Specify one -i for each tag or none to collect all three.\n-v                     Optional. Verbose output\n-h                     Optional. Shows this help message\n\nUsage: ./smokeTest.php -u <URL to test> [-i script] [-i link] [-i img] [-v]\n\n");
 $url = $arguments['u'];
 if(isset($arguments['i'])){
     if(!is_array($arguments['i']))
