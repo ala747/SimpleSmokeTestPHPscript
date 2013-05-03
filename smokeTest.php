@@ -31,17 +31,26 @@ Class SmokeTest {
     }
 
     private function testThis($url, $verbose) {
-        if ($verbose !== false)
+        if ($verbose !== false) {
             echo "Testing: ". $url ."\n";
-        $status = exec("curl --silent --head '". $url ."' | head -1 | cut -f 2 -d' '");
-        echo $status !== '' && $status < 400 ? "\033[0;32m  OK  \033[0m Status ". $status ."\n" : "\033[1;31m FAIL \033[0m Status ". $status ." for ". $url ."\n";
+            $status = exec("curl --silent --head '". $url ."' | head -1 | cut -f 2 -d' '");
+            echo $status !== '' && $status < 400 ? "\033[0;32m  OK  \033[0m Status ". $status ."\n" : "\033[1;31m FAIL \033[0m Status ". $status ." for ". $url ."\n";
+        } else {
+            $status = exec("curl --silent --head '". $url ."' | head -1 | cut -f 2 -d' '");
+            if ($status !== '' && $status < 400) {
+                echo "\033[0;32m.\033[0m";
+            } else {
+                echo "\033[1;31mx\033[0m";
+                $this->errors[] = "\033[1;31m FAIL \033[0m Status ". $status ." for ". $url ."\n";
+            }
+        }
     }
 
     public function run($url = null, $include, $verbose = false) {
-        
         if ($url === null)
             return;
 
+        $this->errors = array();
         $this->testThis($url, $verbose);
         $dom = new DOMDocument('1.0');
         @$dom->loadHTMLFile($url);
@@ -53,6 +62,17 @@ Class SmokeTest {
 
         foreach ($collection as $url) {
             $this->testThis($url, $verbose);
+        }
+        if ($verbose === false) {
+            if (count($this->errors) === 0)
+                echo "\n\n\033[0;32mYAY! All tests passed OK!\033[0m\n\n";
+            else {
+                echo "\n\n\033[1;31mOH SNAP! There were errors!\033[0m\n\n";
+                foreach ($this->errors as $error) {
+                    echo $error;
+                }
+                echo "\n";
+            }
         }
     }
 }

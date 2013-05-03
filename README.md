@@ -17,15 +17,11 @@ Requests a given URL and checks if the response HTTP Status is < 400 (in other w
 ## Examples
 ### Default
 	 $ ./smokeTest.php -u http://www.olx.com
-	  OK   Status 200
-	  OK   Status 200
-	  OK   Status 200
-	  OK   Status 200
-	  OK   Status 200
-	  OK   Status 200
-	  OK   Status 200
-	  OK   Status 200
-	  OK   Status 200
+	 .........
+	 
+	 YAY! All tests passed OK!
+	 
+
 
 ### Verbose
 	$ ./smokeTest.php -u http://www.olx.com -v
