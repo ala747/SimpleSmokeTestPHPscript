@@ -3,7 +3,7 @@ Simple Smoke Test PHP Script
 
 This is a quick&amp;dirty script to run simple smoke tests from the console using PHP CLI + cURL.
 
-It simply tests a given URL for its HTTP Status and checks that it is < 400 (in other words, anything but an error). It can also parse the initial document looking for certain HTML tags to collect child URLs to be included into the test. (Scripts, links and images at the moment.)
+Requests a given URL and checks if the response HTTP Status is < 400 (in other words, anything but an error). It can also parse the response body to crawl linked URLs (it looks into script tags for JS, link tags for CSS and favicons and img tags) which will be tested too.
 
 ## Documentation
 	-u <URL to test>       Required. The URL to check.
